@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<link href="style.css" rel="stylesheet"/>
+
+<head>
+    <title>Genius Live Player Example</title>
+    <script type="text/javascript" src="script.js"></script>
+    <script id="geniusLivePlayerCall"></script>
+</head>
+
+<body>
+<div class="div-4"><h1>GeniusLive player</h1></div>
+<div class="div-1">
+    <div name="playerContainer" class="div-2"></div>
+    <div class="div-3">
+        <div>
+            <form>
+                <fieldset>
+                    <label>1 - Select an environment</label>
+                    <br>
+                    <label>Environment</label>
+                    <select name="environment" id="environment">
+                        <option value="UAT" selected>uat</option>
+                        <option value="PRODPRM">production</option>
+                    </select>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Player config</legend>
+                    <label>2 - Set a customer</label><br>
+                    <label>Customer <input type="text" id="customerId" name="customer" size="10" minlength="4"
+                                           maxlength="12"/></label>
+                    <br><br>
+                    <label>3 - Set a Fixture</label><br>
+                    <label> Fixture <input type="text" id="fixtureId" name="fixture" size="10" minlength="4"
+                                           maxlength="12"/></label>
+                    <br><br>
+                    <label>4 - Update GeniusLive player options</label><br>
+                    <label>Container Id <input type="text" id="containerId" name="containerId" size="12" minlength="2"
+                                               maxlength="15" value="geniusLive"/></label><br>
+                    <label><input type="checkbox" id="controlsEnabled" name="controlsEnabled" checked>Controls
+                        Enabled</label><br>
+                    <label><input type="checkbox" id="audioEnabled" name="audioEnabled" checked>Audio
+                        Enabled</label><br>
+                    <label><input type="checkbox" id="autoplayEnabled" name="autoplayEnabled" checked>Auto Play
+                        Enabled</label><br>
+                    <label><input type="checkbox" id="allowFullScreen" name="allowFullScreen" checked>Allow Full
+                        Screen</label><br>
+                    <label>Player Width <input type="text" id="playerWidth" name="playerWidth" size="4" minlength="3"
+                                               maxlength="6" value="720px"/></label><br>
+                    <label>Player Height <input type="text" id="playerHeight" name="playerHeight" size="4" minlength="3"
+                                                maxlength="6" value="480px"/></label><br>
+                    <label>Buffer Length <input type="text" id="bufferLength" name="bufferLength" size="3" minlength="1"
+                                                maxlength="2" value="2"/></label><br>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Internal video-api-3 call</legend>
+                    <label>5 - Customer config for video-api-v3 call</label><br>
+                    <label>API Key <input type="password" id="apiKey" name="apiKey" size="36" minlength="2"
+                                          maxlength="40"/></label><br>
+                    <label>User Name <input type="text" id="username" name="username" size="26" minlength="2"
+                                            maxlength="30"/></label><br>
+                    <label>Password <input type="password" id="password" name="password" size="26"
+                                           minlength="2" maxlength="30"/></label><br>
+                    <br>
+                    <label>6 - Update stream Request body configuration</label>
+                    <br>
+                    <label>Region <input type="text" id="region" name="region" size="4" minlength="2"
+                                         maxlength="2" value="CO"/></label><br>
+                    <label>Device <input type="text" id="device" name="device" size="9" minlength="3"
+                                         maxlength="7" value="DESKTOP"/></label><br>
+                    <label>End User Session Id <input type="text" id="endUserSessionId" name="endUserSessionId"
+                                                      minlength="6" size="8"
+                                                      minlength="1" maxlength="10" value="123abc"/></label><br>
+                </fieldset>
+                <br>
+                <fieldset>
+                    <legend>Play stream with current configuration</legend>
+                    <button type="button" onclick="sendInformationToBackend()"><b>Play Stream</b></button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
