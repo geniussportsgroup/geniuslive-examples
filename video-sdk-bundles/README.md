@@ -2,7 +2,7 @@
 
 This README file provides information about the production video SDK bundles for Android and iOS, including changelog versions and important changes.
 
-## Android
+## Changelog
 
 ### Version 1.0.0
 
@@ -10,13 +10,6 @@ This README file provides information about the production video SDK bundles for
 - Features include video player initialization.
 - Provides an easy-to-use API for integrating video functionality into Android applications.
 
-## iOS
-
-### Version 1.0.0
-
-- Initial release of the video SDK bundles for iOS.
-- Features include video player initialization.
-- Provides an easy-to-use API for integrating video functionality into iOS applications.
 
 ## Installation
 
