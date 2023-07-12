@@ -4,7 +4,7 @@ This README file provides information about the production video SDK bundles for
 
 ## Changelog
 
-### Version 1.0.0
+### Version 0.1.0
 
 - Initial release of the video SDK bundles for Android.
 - Features include video player initialization.
