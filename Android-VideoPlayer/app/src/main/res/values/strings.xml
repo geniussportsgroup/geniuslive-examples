@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="fake_fixtureid">Fake fixtureid</string>
+    <string name="fixtureid">CG FixtureId</string>
+    <string name="DefaultCGFixtureId">9889284</string>
+    <string name="DefaultFakeFixtureId">20000062448</string>
+</resources>
