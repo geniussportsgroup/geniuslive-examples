@@ -4,29 +4,20 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Button
-import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.Template.Template.Companion.geniusTemplate
 import com.example.showcaseandroid.databinding.ActivityMainBinding
-import com.geniussports.Types.VideoConfiguration
-import com.geniussports.videoplayer.VideoSDK
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import java.lang.Exception
+
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -34,12 +25,7 @@ open class MainActivity : AppCompatActivity() {
     private var isReversePortrait: Boolean = false
     private var isReverseLandscape: Boolean = false
 
-    private lateinit var etFakeFixtureId: EditText
-    private lateinit var etCgFixtureId : EditText
-    private lateinit var btnLoadVideo : Button
-
     var orientationEventListener: OrientationEventListener? = null
-
     var windowInsetsController : WindowInsetsControllerCompat? = null
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -75,13 +61,7 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
-        etFakeFixtureId = findViewById(R.id.etFakeFixtureId)
-        etCgFixtureId = findViewById(R.id.etFixtureId)
-        btnLoadVideo = findViewById(R.id.btnLoadVideo)
-
-        btnLoadVideo.setOnClickListener{loadWebViewPlayer()}
-
-        webView = findViewById(R.id.webview)
+        webView = findViewById(R.id.playerWebView)
         webView?.settings?.javaScriptEnabled = true
         webView?.settings?.domStorageEnabled = true
         webView?.settings?.allowFileAccess = true
@@ -96,32 +76,47 @@ open class MainActivity : AppCompatActivity() {
 
     private fun loadWebViewPlayer() {
 
-        val configuration = VideoConfiguration().apply {
-            fixtureId = etFakeFixtureId.text.toString()
-            cgFixtureId = etCgFixtureId.text.toString()
-            customerId = "[CustomerId]"
-            apikey = "[CustomerApiKey]"
-            user = "[CustomerUser]"
-            password = "[CustomerPassword]"
-        }
+        val baseGeniusLivePlayerUrl = "https://genius-live-player-uat.betstream.betgenius.com/widgetLoader?"
+        val customerId: String = "0000"
+        val fixtureId: String = "20000062994"
+        val betVisionFixtureId: String = "9889284"
+        val userSessionId: String = "123456"
+        val region: String? = "CO"
+        val device: String = "DESKTOP"
+        val controlsEnabled: Boolean = true
+        val audioEnabled: Boolean = true
+        val autoplayEnabled: Boolean = true
+        val allowFullScreen: Boolean = true
+        val playerWidth: String = "100vw"
+        val playerHeight: String = "100vh"
+        val bufferLength: Int = 2
+        val minWidth: String = "100px"
 
-        runBlocking {
-            launch {
-                try {
-                    val res: String = VideoSDK().getVideoStream(configuration)
-                    webView?.loadDataWithBaseURL(
-                        "http://www.example.com?fixtureImmersive=${etCgFixtureId.text.toString()}",
-                        res,
-                        "text/html",
-                        "UTF-8",
-                        ""
-                    )
-                } catch (exception: Exception)
-                {
-                    Log.d("Exception", exception.toString())
-                }
-            }
-        }
+        val htmlTemplate = geniusTemplate
+
+        val htmlTemplateMapped = htmlTemplate
+            .replace("%{baseGeniusLivePlayerUrl}", baseGeniusLivePlayerUrl)
+            .replace("%{customerId}", customerId)
+            .replace("%{fixtureId}", fixtureId)
+            .replace("%{userSessionId}", userSessionId)
+            .replace("%{region}", region.toString())
+            .replace("%{device}", device)
+            .replace("%{audioEnabled}", audioEnabled.toString())
+            .replace("%{controlsEnabled}", controlsEnabled.toString())
+            .replace("%{autoplayEnabled}", autoplayEnabled.toString())
+            .replace("%{allowFullScreen}", allowFullScreen.toString())
+            .replace("%{playerWidth}", playerWidth)
+            .replace("%{playerHeight}", playerHeight)
+            .replace("%{bufferLength}", bufferLength.toString())
+            .replace("%{minWidth}", minWidth)
+
+        webView?.loadDataWithBaseURL(
+            "http://www.example.com?fixtureImmersive=${betVisionFixtureId}",
+            htmlTemplateMapped,
+            "text/html",
+            "UTF-8",
+            ""
+        )
     }
 
     private fun handleOrientationChange(orientation: Int) {
