@@ -20,7 +20,6 @@ class Template {
         <!-- Script to start the video player -->
         <script>
             function runVideoplayer() {
-                const endUserSessionId = (Math.random() + 1).toString(36).substring(4)
                 const baseGeniusLivePlayerUrl = '%{baseGeniusLivePlayerUrl}'
                 
                 // Here we are building the widget loader url and replacing the src attributte of the script element
@@ -81,7 +80,6 @@ class Template {
                     drm: 'drm region'
                 }
             }
-        
             window.addEventListener('load', runVideoplayer)
         </script>
     </html>
