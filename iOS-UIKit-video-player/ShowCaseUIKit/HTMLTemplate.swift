@@ -1,6 +1,6 @@
 var baseGeniusLivePlayerUrl = "https://genius-live-player-uat.betstream.betgenius.com/widgetLoader?"
 
-func getHTMLString(fixtureData: FixtureData) -> String {
+func getHTMLString(configuration: VideoPlayerConfiguration) -> String {
   
   let HTMLTemplate = #"""
   <!DOCTYPE html>
@@ -26,25 +26,25 @@ func getHTMLString(fixtureData: FixtureData) -> String {
           document.getElementById('VideoPlayerWidgetLoader').src = [
               baseGeniusLivePlayerUrl,
               'customerId=',
-              '\#(fixtureData.customerId)',
+              '\#(configuration.customerId)',
               '&fixtureId=',
-              '\#(fixtureData.fixtureId)',
+              '\#(configuration.fixtureId)',
               '&containerId=',
               'geniusLive',
               '&width=',
-              '\#(fixtureData.playerWidth)',
+              '\#(configuration.playerWidth)',
               '&height=',
-              '\#(fixtureData.playerHeight)',
+              '\#(configuration.playerHeight)',
               '&controlsEnabled=',
-              '\#(fixtureData.controlsEnabled)',
+              '\#(configuration.controlsEnabled)',
               '&audioEnabled=',
-              '\#(fixtureData.audioEnabled)',
+              '\#(configuration.audioEnabled)',
               '&allowFullScreen=',
-              '\#(fixtureData.allowFullScreen)',
+              '\#(configuration.allowFullScreen)',
               '&bufferLength=',
-              '\#(fixtureData.bufferLength)',
+              '\#(configuration.bufferLength)',
               '&autoplayEnabled=',
-              '\#(fixtureData.autoplayEnabled)',
+              '\#(configuration.autoplayEnabled)',
           ].join('')
             
           window.addEventListener('geniussportsmessagebus', async function (event) {

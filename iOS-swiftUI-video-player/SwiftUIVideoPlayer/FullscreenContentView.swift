@@ -63,8 +63,8 @@ struct FullscreenContentView: View {
   }
   
   func updateVideoURL(){
-    let fixtureData = FixtureData()
-    let htmlString = getHTMLString(fixtureData: fixtureData)
+    let configuration = VideoPlayerConfiguration()
+    let htmlString = getHTMLString(configuration: configuration)
     let baseURL = "https://www.example.com"
      webViewCoordinator.webView.loadHTMLString(
        htmlString,

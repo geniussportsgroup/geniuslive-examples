@@ -1,4 +1,4 @@
-struct FixtureData {
+struct VideoPlayerConfiguration {
   var customerId: String = ""
   var fixtureId: String = ""
   var playerWidth: String = "100vw"

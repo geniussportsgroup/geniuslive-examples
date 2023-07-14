@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7B3DF3A72A5C953F0066AC4C /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */; };
 		7B3DF3A92A5C95910066AC4C /* WebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */; };
-		7BA2E24E2A60A4BC00BB3550 /* FixtureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA2E24D2A60A4BC00BB3550 /* FixtureData.swift */; };
+		7BA2E24E2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA2E24D2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift */; };
 		7BA2E2502A60A4C400BB3550 /* HTMLTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA2E24F2A60A4C400BB3550 /* HTMLTemplate.swift */; };
 		7BEDD3B72A5770470041D0B5 /* FullscreenContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEDD3B62A5770470041D0B5 /* FullscreenContentView.swift */; };
 		E13A1F532A08566D00585455 /* showCaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13A1F522A08566D00585455 /* showCaseApp.swift */; };
@@ -48,7 +48,7 @@
 /* Begin PBXFileReference section */
 		7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapper.swift; sourceTree = "<group>"; };
-		7BA2E24D2A60A4BC00BB3550 /* FixtureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixtureData.swift; sourceTree = "<group>"; };
+		7BA2E24D2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerConfiguration.swift; sourceTree = "<group>"; };
 		7BA2E24F2A60A4C400BB3550 /* HTMLTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTemplate.swift; sourceTree = "<group>"; };
 		7BEDD3B62A5770470041D0B5 /* FullscreenContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenContentView.swift; sourceTree = "<group>"; };
 		E13A1F4F2A08566D00585455 /* SwitfUIVideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwitfUIVideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,7 +113,7 @@
 			children = (
 				E13A1F522A08566D00585455 /* showCaseApp.swift */,
 				7BEDD3B62A5770470041D0B5 /* FullscreenContentView.swift */,
-				7BA2E24D2A60A4BC00BB3550 /* FixtureData.swift */,
+				7BA2E24D2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift */,
 				7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */,
 				7BA2E24F2A60A4C400BB3550 /* HTMLTemplate.swift */,
 				7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */,
@@ -253,7 +253,7 @@
 				7B3DF3A72A5C953F0066AC4C /* WebViewCoordinator.swift in Sources */,
 				7BEDD3B72A5770470041D0B5 /* FullscreenContentView.swift in Sources */,
 				E13A1F532A08566D00585455 /* showCaseApp.swift in Sources */,
-				7BA2E24E2A60A4BC00BB3550 /* FixtureData.swift in Sources */,
+				7BA2E24E2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift in Sources */,
 				7B3DF3A92A5C95910066AC4C /* WebViewWrapper.swift in Sources */,
 				7BA2E2502A60A4C400BB3550 /* HTMLTemplate.swift in Sources */,
 			);
