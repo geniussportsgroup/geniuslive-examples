@@ -20,7 +20,6 @@ func getHTMLString(configuration: VideoPlayerConfiguration) -> String {
   <script>
       let showVideo = false
       function runVideoplayer() {
-          const endUserSessionId = (Math.random() + 1).toString(36).substring(4);
           const baseGeniusLivePlayerUrl = "\#(baseGeniusLivePlayerUrl)";
   
           document.getElementById('VideoPlayerWidgetLoader').src = [
