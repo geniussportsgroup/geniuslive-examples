@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.Window
+import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -110,8 +111,11 @@ open class MainActivity : AppCompatActivity() {
             .replace("%{bufferLength}", bufferLength.toString())
             .replace("%{minWidth}", minWidth)
 
+        webView?.loadUrl("https://www.example.com")
+        Thread.sleep(5_000)
+
         webView?.loadDataWithBaseURL(
-            "http://www.example.com?fixtureImmersive=${betVisionFixtureId}",
+            "https://www.example.com?fixtureImmersive=${betVisionFixtureId}",
             htmlTemplateMapped,
             "text/html",
             "UTF-8",
@@ -197,6 +201,10 @@ open class MainActivity : AppCompatActivity() {
             this.webView = webView
             this.window = window
             this.mainActivity = mainActivity
+        }
+
+        override fun onPermissionRequest(request: PermissionRequest) {
+            request.grant(request.resources)
         }
 
         var fullscreen: View? = null
