@@ -74,10 +74,12 @@ class Template {
             async function getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost) {
                 // Here you need to call your backend and retrieve the streaming info based on the given deliveryType, streamId, deliveryId and geniusSportsFixtureId
                 return {
-                   url: 'Video URL',
-                    expiresAt: 'expiration date',
-                    token: 'auth token',
-                    drm: 'drm region'
+                         url: 'The video URL',
+                         expiresAt: 'The expiration date',
+                         token: 'The Auth token',
+                         "drm": {
+                           "widevine": "The widevine drm url",
+                   }
                 }
             }
             window.addEventListener('load', runVideoplayer)
