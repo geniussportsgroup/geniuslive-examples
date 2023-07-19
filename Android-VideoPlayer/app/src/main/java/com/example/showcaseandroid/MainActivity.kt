@@ -111,9 +111,6 @@ open class MainActivity : AppCompatActivity() {
             .replace("%{bufferLength}", bufferLength.toString())
             .replace("%{minWidth}", minWidth)
 
-        webView?.loadUrl("https://www.example.com")
-        Thread.sleep(5_000)
-
         webView?.loadDataWithBaseURL(
             "https://www.example.com?fixtureImmersive=${betVisionFixtureId}",
             htmlTemplateMapped,
