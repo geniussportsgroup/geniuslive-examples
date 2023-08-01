@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.Window
+import android.webkit.CookieManager
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -62,12 +63,19 @@ open class MainActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+
         webView = findViewById(R.id.playerWebView)
         webView?.settings?.javaScriptEnabled = true
         webView?.settings?.domStorageEnabled = true
         webView?.settings?.allowFileAccess = true
         webView?.webChromeClient = MyChrome(webView, window, this)
         webView?.webViewClient = WebViewClient()
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+        } else {
+            CookieManager.getInstance().setAcceptCookie(true)
+        }
 
         windowInsetsController =
             WindowCompat.getInsetsController(window, window.decorView)
