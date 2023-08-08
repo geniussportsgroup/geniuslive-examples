@@ -26,12 +26,20 @@ struct FullscreenContentView: View {
         webViewCoordinator.messageHandler = messageHandler
         updateVideoURL()
       }
+      .onDisappear() {
+          // Re-enable idle timer when the view disappears
+          UIApplication.shared.isIdleTimerDisabled = false
+      }
       .onReceive(rotationChangePublisher) { _ in
         if isVideoPlayerReady {
           onToggleFullscreen()
         }
       }
     }
+  }
+  init() {
+    // Disable idle timer when the view appears
+    UIApplication.shared.isIdleTimerDisabled = true
   }
   func onDismiss() {
     changeOrientation(to: .portrait)
