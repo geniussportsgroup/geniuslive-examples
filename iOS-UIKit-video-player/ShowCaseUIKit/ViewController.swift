@@ -9,6 +9,8 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    UIApplication.shared.isIdleTimerDisabled = true
+      
     webViewCoordinator = WebViewCoordinator()
     webViewCoordinator.messageHandler = messageHandler
     webViewCoordinator.webView.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 300)
@@ -18,6 +20,11 @@ class ViewController: UIViewController {
     view.backgroundColor = .white
     view.addSubview(webViewCoordinator.webView)
     updateVideoURL()
+  }
+    
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    UIApplication.shared.isIdleTimerDisabled = false
   }
   
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
