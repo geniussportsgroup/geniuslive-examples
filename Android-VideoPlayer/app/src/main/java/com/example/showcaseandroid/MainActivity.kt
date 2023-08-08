@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import android.webkit.CookieManager
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
@@ -81,6 +82,9 @@ open class MainActivity : AppCompatActivity() {
             WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController?.systemBarsBehavior =
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+
+        // Keep the screen on
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
     private fun loadWebViewPlayer() {
