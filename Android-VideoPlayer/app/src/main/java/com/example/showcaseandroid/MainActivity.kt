@@ -57,6 +57,11 @@ open class MainActivity : AppCompatActivity() {
         super.onPause()
         orientationEventListener?.disable()
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Remove the FLAG_KEEP_SCREEN_ON flag
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
