@@ -3,6 +3,7 @@ package com.example.showcaseandroid
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.OrientationEventListener
 import android.view.View
@@ -215,6 +216,10 @@ open class MainActivity : AppCompatActivity() {
             this.webView = webView
             this.window = window
             this.mainActivity = mainActivity
+        }
+
+        override fun getDefaultVideoPoster(): Bitmap? {
+            return Bitmap.createBitmap(10, 10, Bitmap.Config.ARGB_8888)
         }
 
         override fun onPermissionRequest(request: PermissionRequest) {
