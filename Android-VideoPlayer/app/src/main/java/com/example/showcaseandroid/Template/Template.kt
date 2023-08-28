@@ -70,8 +70,10 @@ class Template {
                             }
                     }
                     if (event.detail.type === 'multibet-event') {
-                      var jsonselectedMarket= JSON.stringify(event.detail.body)
-                      AndroidVideoPlayerBridge.postSelectedMarket(jsonselectedMarket)
+                      if(window.AndroidVideoPlayerBridge){
+                          var jsonselectedMarket= JSON.stringify(event.detail.body)
+                          window.AndroidVideoPlayerBridge.postSelectedMarket(jsonselectedMarket)
+                      }
                     }
                 })
             }
