@@ -69,6 +69,10 @@ class Template {
                                 document.getElementById('container-video').style.display = 'none'
                             }
                     }
+                    if (event.detail.type === 'multibet-event') {
+                      var jsonselectedMarket= JSON.stringify(event.detail.body)
+                      AndroidVideoPlayerBridge.postSelectedMarket(jsonselectedMarket)
+                    }
                 })
             }
             async function getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost) {

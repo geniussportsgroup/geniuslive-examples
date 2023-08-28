@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Customer betslip"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/sportsbookFixtureIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sportsbookFixtureId: [sportsbookFixtureId]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/sportsbookSelectionIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sportsbookSelectionId: [sportsbookSelectionId]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/marketIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="marketId: [marketId]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/sportsbookMarketIdTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sportsbookMarketId: [sportsbookMarketId]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/sportsbookMarketContextTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sportsbookMarketContext: [sportsbookMarketContext]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/decimalPriceTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="decimalPrice: [decimalPrice]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <TextView
+        android:id="@+id/stakeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stake: [stake]"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:gravity="start" />
+
+    <Button
+        android:id="@+id/addbetslip_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Bet"
+        android:textSize="18sp"
+        android:textColor="#E1FF67"
+        android:layout_marginTop="13dp" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:textSize="18sp"
+        android:textColor="#E1FF67"
+        android:layout_marginTop="13dp" />
+</LinearLayout>

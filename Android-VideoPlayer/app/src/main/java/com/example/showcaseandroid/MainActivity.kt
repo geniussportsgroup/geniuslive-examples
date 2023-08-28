@@ -1,26 +1,34 @@
 package com.example.showcaseandroid
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.OrientationEventListener
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.CookieManager
+import android.webkit.JavascriptInterface
 import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.Template.Template.Companion.geniusTemplate
 import com.example.showcaseandroid.databinding.ActivityMainBinding
+import org.json.JSONObject
 
 
 open class MainActivity : AppCompatActivity() {
@@ -69,6 +77,64 @@ open class MainActivity : AppCompatActivity() {
         changeRequestedOrientation(newConfig)
     }
 
+    internal class JavaScriptInterface(private val context: Context) {
+        @JavascriptInterface
+        fun postSelectedMarket(betslipItem: String) {
+
+            val jsonObject = JSONObject(betslipItem)
+
+            // Extract fields from the JSON object
+
+            val sportsbookFixtureId: String = jsonObject.optString("sportsbookFixtureId", "")
+            val sportsbookSelectionId: String = jsonObject.optString("sportsbookSelectionId", "")
+            val marketId: String = jsonObject.optString("marketId", "")
+            val sportsbookMarketId: String = jsonObject.optString("sportsbookMarketId", "")
+            val sportsbookMarketContext: String = jsonObject.optString("sportsbookMarketContext", "")
+            val decimalPrice: String = jsonObject.optString("decimalPrice", "")
+            val stake: String = jsonObject.optString("stake", "")
+
+            val dialogView = LayoutInflater.from(context).inflate(R.layout.betslip, null)
+
+            val dialog = Dialog(context)
+            dialog.setContentView(dialogView)
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setTitle("Customer Betslip")
+
+            var sportsbookFixtureIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookFixtureIdTextView)
+            var sportsbookSelectionIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookSelectionIdTextView)
+            var marketIdTextView: TextView =  dialogView.findViewById(R.id.marketIdTextView)
+            var sportsbookMarketIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketIdTextView)
+            var sportsbookMarketContextTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketContextTextView)
+            var decimalPriceTextView: TextView =  dialogView.findViewById(R.id.decimalPriceTextView)
+            var stakeTextView: TextView =  dialogView.findViewById(R.id.stakeTextView)
+
+            val addToBetslipButton: Button = dialogView.findViewById(R.id.addbetslip_button)
+            val cancelButton: Button = dialogView.findViewById(R.id.cancel_button)
+
+            sportsbookFixtureIdTextView.text = "sportsbookFixtureId: ${sportsbookFixtureId}"
+            sportsbookSelectionIdTextView.text = "sportsbookSelectionId: ${sportsbookSelectionId}"
+            marketIdTextView.text = "marketId: ${marketId}"
+            sportsbookMarketIdTextView.text = "sportsbookMarketId: ${sportsbookMarketId}"
+            sportsbookMarketContextTextView.text = "sportsbookMarketContext: ${sportsbookMarketContext}"
+            decimalPriceTextView.text = "decimalPrice: ${decimalPrice}"
+            stakeTextView.text = "stake: ${stake}"
+
+            cancelButton.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            addToBetslipButton.setOnClickListener {
+                val duration = Toast.LENGTH_SHORT
+
+                val toast = Toast.makeText(context, "BET PLACED!!", duration)
+                toast.show()
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
+    }
+
     private fun setupLayout() {
 
         webView = findViewById(R.id.playerWebView)
@@ -77,6 +143,7 @@ open class MainActivity : AppCompatActivity() {
         webView?.settings?.allowFileAccess = true
         webView?.webChromeClient = MyChrome(webView, window, this)
         webView?.webViewClient = WebViewClient()
+        webView?.addJavascriptInterface(JavaScriptInterface(this), "AndroidVideoPlayerBridge")
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
