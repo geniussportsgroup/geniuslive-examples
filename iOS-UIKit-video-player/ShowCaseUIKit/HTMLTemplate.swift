@@ -1,90 +1,39 @@
+import UIKit
+
 var baseGeniusLivePlayerUrl = "https://genius-live-player-uat.betstream.betgenius.com/widgetLoader?"
 
 func getHTMLString(configuration: VideoPlayerConfiguration) -> String {
   
-  let HTMLTemplate = #"""
-  <!DOCTYPE html>
-  <html>
-  <head>
-      <meta charset='UTF-8' />
-      <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,viewport-fit=cover" />
-      <title>Genius Video Player</title>
-  </head>
-  <body style='margin: 0'>
-      <div id='container-video' class='container-video'>
-          <div id='geniusLive' class='video'>
-          </div>
-      </div>
-  </body>
-  <script id='VideoPlayerWidgetLoader'></script>
-  <script>
-      let showVideo = false
-      function runVideoplayer() {
-          const baseGeniusLivePlayerUrl = "\#(baseGeniusLivePlayerUrl)";
-  
-          document.getElementById('VideoPlayerWidgetLoader').src = [
-              baseGeniusLivePlayerUrl,
-              'customerId=',
-              '\#(configuration.customerId)',
-              '&fixtureId=',
-              '\#(configuration.fixtureId)',
-              '&containerId=',
-              'geniusLive',
-              '&width=',
-              '\#(configuration.playerWidth)',
-              '&height=',
-              '\#(configuration.playerHeight)',
-              '&controlsEnabled=',
-              '\#(configuration.controlsEnabled)',
-              '&audioEnabled=',
-              '\#(configuration.audioEnabled)',
-              '&allowFullScreen=',
-              '\#(configuration.allowFullScreen)',
-              '&bufferLength=',
-              '\#(configuration.bufferLength)',
-              '&autoplayEnabled=',
-              '\#(configuration.autoplayEnabled)',
-          ].join('')
-            
-          window.addEventListener('geniussportsmessagebus', async function (event) {
-              if (event.detail.type === 'player_ready') {
-                  const deliveryType = event.detail.body.deliveryType
-                  const streamId = event.detail.body.streamId
-                  const deliveryId = event.detail.body.deliveryId
-                  const geniusSportsFixtureId = event.detail.body.geniusSportsFixtureId
-                  const dataToPost = {
-                      endUserSessionId: document.cookie, //user session id
-                      region: 'CO', //region
-                      device: 'DESKTOP', //device
-                  }
-                  // Calling your getSteramingData function to get the streaming info from your backeand
-                  const data = await getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost)
-
-                  if (Object.keys(data).length > 0 && !data.ErrorMessage) {
-                      showVideo = true
-                      GeniusLivePlayer.player.start(data)
-                  } else {
-                      document.getElementById('container-video').style.display = 'none'
-                  }
-              }
-          })
-      }
-  
-      async function getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost) {
-          // Here you need to call your backend and retrieve the streaming info based on the given deliveryType, streamId, deliveryId and geniusSportsFixtureId
-          return {
-            url: 'Video URL',
-            expiresAt: 'expiration date',
-            token: 'auth token',
-            drm: 'drm region',
-          }
-      }
-
-      window.addEventListener('load', runVideoplayer)
-  </script>
-  </html>
-  """#
-  return HTMLTemplate
+  // Get the URL to the HTML file
+  if let htmlFileURL = Bundle.main.url(forResource: "template", withExtension: "html") {
+    do {
+      // Read the contents of the HTML file
+      var htmlContent = try String(contentsOf: htmlFileURL, encoding: .utf8)
+      
+      // Replace placeholders for HTML content
+      htmlContent = htmlContent.replacingOccurrences(of: "{customerId}", with: configuration.customerId)
+      htmlContent = htmlContent.replacingOccurrences(of: "{fixtureId}", with: configuration.fixtureId)
+      htmlContent = htmlContent.replacingOccurrences(of: "{playerWidth}", with: configuration.playerWidth)
+      htmlContent = htmlContent.replacingOccurrences(of: "{playerHeight}", with: configuration.playerHeight)
+      htmlContent = htmlContent.replacingOccurrences(of: "{controlsEnabled}", with: configuration.controlsEnabled)
+      htmlContent = htmlContent.replacingOccurrences(of: "{audioEnabled}", with: configuration.audioEnabled)
+      htmlContent = htmlContent.replacingOccurrences(of: "{allowFullScreen}", with: configuration.allowFullScreen)
+      htmlContent = htmlContent.replacingOccurrences(of: "{bufferLength}", with: configuration.bufferLength)
+      htmlContent = htmlContent.replacingOccurrences(of: "{autoplayEnabled}", with: configuration.autoplayEnabled)
+      htmlContent = htmlContent.replacingOccurrences(of: "{baseGeniusLivePlayerUrl}", with: baseGeniusLivePlayerUrl)
+      
+      // Now 'htmlContent' contains the modified HTML content with replaced placeholders
+      
+      // Display or use 'htmlContent' as needed
+      print(htmlContent)
+      return htmlContent
+    } catch {
+      print("Error reading HTML file: \(error)")
+    }
+  } else {
+    print("HTML file not found")
+  }
+  return ""
 }
 
 

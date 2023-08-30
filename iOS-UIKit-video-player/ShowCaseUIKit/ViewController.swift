@@ -5,21 +5,18 @@ class ViewController: UIViewController {
   var webViewCoordinator: WebViewCoordinator!
   var isVideoPlayerReady: Bool = false
   var isFullscreen: Bool = false
+  private var wrapperView: VideoWrapper!
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
     UIApplication.shared.isIdleTimerDisabled = true
-      
-    webViewCoordinator = WebViewCoordinator()
-    webViewCoordinator.messageHandler = messageHandler
-    webViewCoordinator.webView.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 300)
-    webViewCoordinator.webView.scrollView.bounces = false
-    webViewCoordinator.webView.scrollView.isScrollEnabled = false
-    webViewCoordinator.webView.backgroundColor = .black
     view.backgroundColor = .white
-    view.addSubview(webViewCoordinator.webView)
-    updateVideoURL()
+    wrapperView = VideoWrapper(
+      frame: CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 300),
+      messageHandler: messageHandler
+    )
+    view.addSubview(wrapperView)
   }
     
   override func viewWillDisappear(_ animated: Bool) {
@@ -35,24 +32,20 @@ class ViewController: UIViewController {
     }, completion: nil)
   }
   
-  func messageHandler(type: String) {
+  func messageHandler(type: String, payload: Any) {
     if (type == "toggleFullscreen") {
       changeOrientation(to: isFullscreen ? .portrait : .landscape)
       toggleFullscreen()
     } else if (type == "init") {
       isVideoPlayerReady = true
       updateViewForRotation(to: UIScreen.main.bounds.size)
+    } else if (type == "multibet-event") {
+      if let data = payload as? [String: Any] {
+        wrapperView.updateText(data: data)
+      }
     }
   }
   
-  func updateVideoURL(){
-    let configuration = VideoPlayerConfiguration()
-    let htmlString = getHTMLString(configuration: configuration)
-    let baseURL = "https://www.example.com"
-    webViewCoordinator.webView.loadHTMLString(
-      htmlString,
-      baseURL: URL(string: String(format: baseURL)))
-  }
   
   func updateViewForRotation(to size: CGSize) {
     if isVideoPlayerReady {
@@ -75,26 +68,27 @@ class ViewController: UIViewController {
   
   func goFullscreen() {
     isFullscreen = true
-    webViewCoordinator.webView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+    wrapperView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+    wrapperView.webViewCoordinator.webView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     view.layoutIfNeeded()
     navigationController?.setNavigationBarHidden(true, animated: true)
     setNeedsStatusBarAppearanceUpdate()
     let script = """
       document.querySelector(".video-container")?.classList.add("full-screen")
     """
-    webViewCoordinator.webView.evaluateJavaScript(script)
+    wrapperView.webViewCoordinator.webView.evaluateJavaScript(script)
   }
   
   func exitFullscreen() {
     isFullscreen = false
-    webViewCoordinator.webView.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 300)
+    wrapperView.frame = CGRect(x: 0, y: 100, width: UIScreen.main.bounds.width, height: 300)
     view.layoutIfNeeded()
     navigationController?.setNavigationBarHidden(false, animated: true)
     setNeedsStatusBarAppearanceUpdate()
     let script = """
       document.querySelector(".video-container")?.classList.remove("full-screen")
     """
-    webViewCoordinator.webView.evaluateJavaScript(script)
+    wrapperView.webViewCoordinator.webView.evaluateJavaScript(script)
   }
   
   func changeOrientation(to orientation: UIInterfaceOrientationMask) {
@@ -108,4 +102,3 @@ class ViewController: UIViewController {
     return true
   }
 }
-

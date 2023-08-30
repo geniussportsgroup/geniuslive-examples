@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0D9B0C2A9E9D5000BB237E /* VideoWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B0B2A9E9D5000BB237E /* VideoWrapper.swift */; };
+		7B0D9B0E2A9F842B00BB237E /* CustomBetslip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B0D2A9F842B00BB237E /* CustomBetslip.swift */; };
+		7B0D9B112A9FA44500BB237E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B00862A2A8531CD005C0234 /* template.html */; };
 		7B3DF3B72A5F42330066AC4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3B62A5F42330066AC4C /* AppDelegate.swift */; };
 		7B3DF3B92A5F42330066AC4C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3B82A5F42330066AC4C /* SceneDelegate.swift */; };
 		7B3DF3BB2A5F42330066AC4C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3BA2A5F42330066AC4C /* ViewController.swift */; };
@@ -19,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B00862A2A8531CD005C0234 /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+		7B0D9B0B2A9E9D5000BB237E /* VideoWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoWrapper.swift; sourceTree = "<group>"; };
+		7B0D9B0D2A9F842B00BB237E /* CustomBetslip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBetslip.swift; sourceTree = "<group>"; };
 		7B3DF3B32A5F42330066AC4C /* ShowCaseUIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowCaseUIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B3DF3B62A5F42330066AC4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B3DF3B82A5F42330066AC4C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +78,9 @@
 				7B3DF3C42A5F42340066AC4C /* Info.plist */,
 				7B3DF3D22A6076E90066AC4C /* VideoPlayerConfiguration.swift */,
 				7B3DF3D42A60770D0066AC4C /* HTMLTemplate.swift */,
+				7B00862A2A8531CD005C0234 /* template.html */,
+				7B0D9B0B2A9E9D5000BB237E /* VideoWrapper.swift */,
+				7B0D9B0D2A9F842B00BB237E /* CustomBetslip.swift */,
 			);
 			path = ShowCaseUIKit;
 			sourceTree = "<group>";
@@ -134,6 +143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0D9B112A9FA44500BB237E /* template.html in Resources */,
 				7B3DF3C32A5F42340066AC4C /* LaunchScreen.storyboard in Resources */,
 				7B3DF3C02A5F42340066AC4C /* Assets.xcassets in Resources */,
 				7B3DF3BE2A5F42330066AC4C /* Main.storyboard in Resources */,
@@ -151,6 +161,8 @@
 				7B3DF3BB2A5F42330066AC4C /* ViewController.swift in Sources */,
 				7B3DF3D32A6076E90066AC4C /* VideoPlayerConfiguration.swift in Sources */,
 				7B3DF3B72A5F42330066AC4C /* AppDelegate.swift in Sources */,
+				7B0D9B0E2A9F842B00BB237E /* CustomBetslip.swift in Sources */,
+				7B0D9B0C2A9E9D5000BB237E /* VideoWrapper.swift in Sources */,
 				7B3DF3B92A5F42330066AC4C /* SceneDelegate.swift in Sources */,
 				7B3DF3D52A60770D0066AC4C /* HTMLTemplate.swift in Sources */,
 			);
