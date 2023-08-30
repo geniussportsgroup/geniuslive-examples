@@ -30,7 +30,7 @@ class VideoWrapper: UIView {
   
   func updateVideoURL(){
     let configuration = VideoPlayerConfiguration()
-    let baseURL = "https://api.geniussports.com?fixtureImmersive=generaltestingfixture"
+    let baseURL = "https://www.example.com"
     let htmlString = getHTMLString(configuration: configuration)
     webViewCoordinator.webView.loadHTMLString(
       htmlString,

@@ -2,7 +2,7 @@ import WebKit
 
 class WebViewCoordinator: NSObject, ObservableObject, WKScriptMessageHandler {
   @Published var webView: WKWebView
-  var messageHandler: ((String) -> Void)?
+  var messageHandler: ((String, Any?) -> Void)?
   
   override init() {
     let configuration = WKWebViewConfiguration()
@@ -24,9 +24,12 @@ class WebViewCoordinator: NSObject, ObservableObject, WKScriptMessageHandler {
   
   func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
     // Handle the message received from JavaScript
-    if let data = message.body as? [String : String],
+    if let data = message.body as? [String : Any],
        let type = data["type"] {
-      messageHandler?(type)
+      messageHandler?("\(type)", nil)
+      if let payload = data["payload"] {
+        messageHandler?("\(type)", payload)
+      }
     }
   }
 }

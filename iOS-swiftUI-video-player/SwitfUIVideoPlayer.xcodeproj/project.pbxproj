@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0D9B132A9FAB1800BB237E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B0D9B122A9FAB1800BB237E /* template.html */; };
+		7B0D9B152A9FAC0000BB237E /* BetslipData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B142A9FAC0000BB237E /* BetslipData.swift */; };
+		7B0D9B172A9FAE1900BB237E /* CustomBetslip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */; };
+		7B0D9B192A9FAE7700BB237E /* CustomToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B182A9FAE7700BB237E /* CustomToast.swift */; };
 		7B3DF3A72A5C953F0066AC4C /* WebViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */; };
 		7B3DF3A92A5C95910066AC4C /* WebViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */; };
 		7BA2E24E2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA2E24D2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift */; };
@@ -46,6 +50,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		7B0D9B122A9FAB1800BB237E /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+		7B0D9B142A9FAC0000BB237E /* BetslipData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetslipData.swift; sourceTree = "<group>"; };
+		7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBetslip.swift; sourceTree = "<group>"; };
+		7B0D9B182A9FAE7700BB237E /* CustomToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToast.swift; sourceTree = "<group>"; };
 		7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewCoordinator.swift; sourceTree = "<group>"; };
 		7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewWrapper.swift; sourceTree = "<group>"; };
 		7BA2E24D2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerConfiguration.swift; sourceTree = "<group>"; };
@@ -117,6 +125,10 @@
 				7B3DF3A62A5C953F0066AC4C /* WebViewCoordinator.swift */,
 				7BA2E24F2A60A4C400BB3550 /* HTMLTemplate.swift */,
 				7B3DF3A82A5C95910066AC4C /* WebViewWrapper.swift */,
+				7B0D9B122A9FAB1800BB237E /* template.html */,
+				7B0D9B142A9FAC0000BB237E /* BetslipData.swift */,
+				7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */,
+				7B0D9B182A9FAE7700BB237E /* CustomToast.swift */,
 			);
 			path = SwiftUIVideoPlayer;
 			sourceTree = "<group>";
@@ -226,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B0D9B132A9FAB1800BB237E /* template.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,7 +265,10 @@
 			files = (
 				7B3DF3A72A5C953F0066AC4C /* WebViewCoordinator.swift in Sources */,
 				7BEDD3B72A5770470041D0B5 /* FullscreenContentView.swift in Sources */,
+				7B0D9B152A9FAC0000BB237E /* BetslipData.swift in Sources */,
+				7B0D9B192A9FAE7700BB237E /* CustomToast.swift in Sources */,
 				E13A1F532A08566D00585455 /* showCaseApp.swift in Sources */,
+				7B0D9B172A9FAE1900BB237E /* CustomBetslip.swift in Sources */,
 				7BA2E24E2A60A4BC00BB3550 /* VideoPlayerConfiguration.swift in Sources */,
 				7B3DF3A92A5C95910066AC4C /* WebViewWrapper.swift in Sources */,
 				7BA2E2502A60A4C400BB3550 /* HTMLTemplate.swift in Sources */,

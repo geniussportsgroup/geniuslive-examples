@@ -5,7 +5,9 @@ struct FullscreenContentView: View {
   
   @StateObject private var webViewCoordinator = WebViewCoordinator()
   @State private var isPresented = false
-  @State private var isVideoPlayerReady = false
+  @StateObject private var betslipData = BetslipData()
+  @State private var showBetslip = false
+  @State private var showToast = false
   
   private let rotationChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
@@ -13,13 +15,23 @@ struct FullscreenContentView: View {
   var body: some View {
     GeometryReader { metrics in
       VStack(spacing: 0) {
-        if !isPresented {
-          WebViewWrapper(webView: webViewCoordinator.webView)
-            .frame(width: metrics.size.width, height: 300)
+        GeometryReader { geometry in
+          ZStack {
+            WebViewWrapper(webView: webViewCoordinator.webView)
+            if showBetslip {
+              CustomBetslip(betslipData: betslipData, showToast: $showToast, showBetslip: $showBetslip)
+            }
+            if showToast {
+              CustomToast(showToast: $showToast)
+            }
+          }
+          .edgesIgnoringSafeArea(.bottom)
+          
+          .frame(width: metrics.size.width, height: geometry.size.height)
+          .offset(x: 0, y: isPresented ? -geometry.frame(in: .global).minY : 0)
+          
         }
-      }
-      .fullScreenCover(isPresented: $isPresented, onDismiss: onDismiss) {
-        FullscreenView(webView: webViewCoordinator.webView)
+        .frame(height: isPresented ? metrics.size.height : 300)
       }
       .onAppear {
         // Load initial web content
@@ -27,13 +39,11 @@ struct FullscreenContentView: View {
         updateVideoURL()
       }
       .onDisappear() {
-          // Re-enable idle timer when the view disappears
-          UIApplication.shared.isIdleTimerDisabled = false
+        // Re-enable idle timer when the view disappears
+        UIApplication.shared.isIdleTimerDisabled = false
       }
       .onReceive(rotationChangePublisher) { _ in
-        if isVideoPlayerReady {
-          onToggleFullscreen()
-        }
+        onToggleFullscreen()
       }
     }
   }
@@ -45,21 +55,46 @@ struct FullscreenContentView: View {
     changeOrientation(to: .portrait)
   }
   
-  func messageHandler(type: String) {
+  func messageHandler(type: String, payload: Any) {
     if (type == "toggleFullscreen") {
-      changeOrientation(to: UIDevice.current.orientation.isLandscape ? .portrait : .landscape)
       isPresented.toggle()
+      changeOrientation(to: isPresented ? .landscape : .portrait)
     } else if (type == "init") {
-      isVideoPlayerReady = true
       onToggleFullscreen()
+    } else if (type == "multibet-event") {
+      print(payload)
+      if let data = payload as? [String: Any] {
+        if let newSportsbookFixtureId = data["sportsbookFixtureId"] as? String {
+          betslipData.sportsbookFixtureId = "\(newSportsbookFixtureId)"
+        }
+        if let newSportsbookFixtureId = data["sportsbookSelectionId"] as? String {
+          betslipData.sportsbookSelectionId = "\(newSportsbookFixtureId)"
+        }
+        if let newSportsbookFixtureId = data["sportsbookMarketId"] as? String {
+          betslipData.sportsbookMarketId = "\(newSportsbookFixtureId)"
+        }
+        if let newSportsbookFixtureId = data["sportsbookMarketContext"] as? String {
+          betslipData.sportsbookMarketContext = "\(newSportsbookFixtureId)"
+        }
+        if let newSportsbookFixtureId = data["marketId"] as? String {
+          betslipData.marketId = "\(newSportsbookFixtureId)"
+        }
+        if let newDecimalPrice = data["decimalPrice"] as? Double {
+          betslipData.decimalPrice = newDecimalPrice
+        }
+        if let newDecimalPrice = data["stake"] as? Double {
+          betslipData.stake = "\(newDecimalPrice)"
+        }
+        showBetslip = true
+      }
     }
   }
   
   func onToggleFullscreen() {
     // This is needed to avoid unkown orientation value
-    let isPortrait = UIDevice.current.orientation.rawValue == 0
+    let isPortrait = UIDevice.current.orientation.rawValue == 0 || UIDevice.current.orientation.isFlat
     ? UIScreen.main.bounds.size.width < UIScreen.main.bounds.size.height
-    : UIDevice.current.orientation.rawValue == 1
+    : UIDevice.current.orientation == .portrait || UIDevice.current.orientation.isFlat
     
     if (!isPortrait && !isPresented) || (isPortrait && isPresented) {
       isPresented.toggle()
@@ -74,9 +109,9 @@ struct FullscreenContentView: View {
     let configuration = VideoPlayerConfiguration()
     let htmlString = getHTMLString(configuration: configuration)
     let baseURL = "https://www.example.com"
-     webViewCoordinator.webView.loadHTMLString(
-       htmlString,
-       baseURL: URL(string: String(format: baseURL)))
+    webViewCoordinator.webView.loadHTMLString(
+      htmlString,
+      baseURL: URL(string: String(format: baseURL)))
   }
   
   func changeOrientation(to orientation: UIInterfaceOrientationMask) {
