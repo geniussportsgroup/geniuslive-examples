@@ -12,6 +12,9 @@ struct FullscreenContentView: View {
   private let rotationChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
   
+  @State private var isIdleTimerDisabled = false
+  let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    
   var body: some View {
     GeometryReader { metrics in
       VStack(spacing: 0) {
@@ -24,6 +27,10 @@ struct FullscreenContentView: View {
             if showToast {
               CustomToast(showToast: $showToast)
             }
+          }.onReceive(timer) { _ in
+              // Toggle the idle timer state
+              isIdleTimerDisabled.toggle()
+              UIApplication.shared.isIdleTimerDisabled = isIdleTimerDisabled
           }
           .edgesIgnoringSafeArea(.bottom)
           
@@ -38,10 +45,6 @@ struct FullscreenContentView: View {
         webViewCoordinator.messageHandler = messageHandler
         updateVideoURL()
       }
-      .onDisappear() {
-        // Re-enable idle timer when the view disappears
-        UIApplication.shared.isIdleTimerDisabled = false
-      }
       .onReceive(rotationChangePublisher) { _ in
         onToggleFullscreen()
       }
@@ -51,6 +54,7 @@ struct FullscreenContentView: View {
     // Disable idle timer when the view appears
     UIApplication.shared.isIdleTimerDisabled = true
   }
+    
   func onDismiss() {
     changeOrientation(to: .portrait)
   }
