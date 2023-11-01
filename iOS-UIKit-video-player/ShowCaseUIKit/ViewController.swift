@@ -2,7 +2,6 @@ import UIKit
 import WebKit
 
 class ViewController: UIViewController {
-  var webViewCoordinator: WebViewCoordinator!
   var isVideoPlayerReady: Bool = false
   var isFullscreen: Bool = false
   private var wrapperView: VideoWrapper!
