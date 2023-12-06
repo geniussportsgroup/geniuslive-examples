@@ -70,6 +70,17 @@ open class MainActivity : AppCompatActivity() {
         super.onDestroy()
         // Remove the FLAG_KEEP_SCREEN_ON flag
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
+        // This script closes the video to avoid leaking HTTP request.
+        // Feel free to incorporate this code where needed to ensure a clean handling of resources.
+        // For example, you may want to close the video when changing between tabs or navigating around
+        val scriptFunction = "javascript:" +
+                """
+                if (window.GeniusLivePlayer?.player) {
+                        window.GeniusLivePlayer.player.close()
+                }
+            """.trimIndent()
+        webView!!.loadUrl(scriptFunction)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
