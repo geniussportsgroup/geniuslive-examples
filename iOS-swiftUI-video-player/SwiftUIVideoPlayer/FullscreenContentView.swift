@@ -48,6 +48,9 @@ struct FullscreenContentView: View {
       .onReceive(rotationChangePublisher) { _ in
         onToggleFullscreen()
       }
+      .onDisappear {
+        webViewCoordinator.onDisappear()
+      }
     }
   }
   init() {

@@ -32,4 +32,13 @@ class WebViewCoordinator: NSObject, ObservableObject, WKScriptMessageHandler {
       }
     }
   }
+
+  func onDisappear() {
+    let script = """
+      if (window.GeniusLivePlayer?.player) {
+          window.GeniusLivePlayer.player.close()
+      }
+    """
+    webView.evaluateJavaScript(script)
+  }
 }

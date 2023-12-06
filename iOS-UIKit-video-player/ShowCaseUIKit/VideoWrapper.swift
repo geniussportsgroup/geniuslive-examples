@@ -70,4 +70,8 @@ class VideoWrapper: UIView {
     webViewCoordinator.webView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
     customBetslip.frame = CGRect(x: 40, y: 40, width: 250, height: 200)
   }
+  
+  func onDisappear() {
+    webViewCoordinator.onDisappear()
+  }
 }

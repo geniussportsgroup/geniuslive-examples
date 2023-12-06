@@ -21,6 +21,7 @@ class ViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     UIApplication.shared.isIdleTimerDisabled = false
+    wrapperView.onDisappear()
   }
   
   override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
