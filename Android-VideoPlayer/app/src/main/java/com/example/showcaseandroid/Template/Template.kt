@@ -49,31 +49,37 @@ class Template {
         
                 // Adding listener for geniussportsmessagebus
                 window.addEventListener('geniussportsmessagebus', async function (event) {
-                        if (event.detail.type === 'player_ready') {
-                            const deliveryType = event.detail.body.deliveryType
-                            const streamId = event.detail.body.streamId
-                            const deliveryId = event.detail.body.deliveryId
-                            const geniusSportsFixtureId = event.detail.body.geniusSportsFixtureId
-                            const dataToPost = {
-                                endUserSessionId: document.cookie, //user session id
-                                region: 'CO', //region
-                                device: 'DESKTOP', //device
-                            }
-                            // Calling your getSteramingData function to get the streaming info from your backeand
-                            const data = await getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost)
-                            // Please add relevant validation for your backend response
-                            if (Object.keys(data).length > 0 && !data.ErrorMessage) {
-                                GeniusLivePlayer.player.start(data)
-                                 document.getElementById('container-video').style.display = 'block'
-                            } else {
-                                document.getElementById('container-video').style.display = 'none'
-                            }
+                    if (event.detail.type === 'player_ready') {
+                        const deliveryType = event.detail.body.deliveryType
+                        const streamId = event.detail.body.streamId
+                        const deliveryId = event.detail.body.deliveryId
+                        const geniusSportsFixtureId = event.detail.body.geniusSportsFixtureId
+                        const dataToPost = {
+                            endUserSessionId: document.cookie, //user session id
+                            region: 'CO', //region
+                            device: 'DESKTOP', //device
+                        }
+                        // Calling your getSteramingData function to get the streaming info from your backeand
+                        const data = await getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost)
+                        // Please add relevant validation for your backend response
+                        if (Object.keys(data).length > 0 && !data.ErrorMessage) {
+                            GeniusLivePlayer.player.start(data)
+                                document.getElementById('container-video').style.display = 'block'
+                        } else {
+                            document.getElementById('container-video').style.display = 'none'
+                        }
                     }
                     if (event.detail.type === 'multibet-event') {
                       if(window.AndroidVideoPlayerBridge){
                           var jsonselectedMarket= JSON.stringify(event.detail.body)
                           window.AndroidVideoPlayerBridge.postSelectedMarket(jsonselectedMarket)
                       }
+                    }
+
+                    // Error handling
+                    if (event.detail.type === 'player_not_ready') {
+                        const errorsArray = event.detail.body.error
+                        // Add your custom handling here
                     }
                 })
             }

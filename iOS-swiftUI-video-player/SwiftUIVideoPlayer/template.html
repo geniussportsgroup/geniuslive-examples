@@ -43,6 +43,12 @@
             iOSVideoPlayerBridge.postMessage({ type, payload: body });
           }
         }
+
+        // Error handling
+        if (event.detail.type === 'player_not_ready') {
+          const errorsArray = event.detail.body.error
+          // Add your custom handling here
+        }
       })
     }
     
