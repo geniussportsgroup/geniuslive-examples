@@ -56,8 +56,8 @@ class Template {
                         const geniusSportsFixtureId = event.detail.body.geniusSportsFixtureId
                         const dataToPost = {
                             endUserSessionId: document.cookie, //user session id
-                            region: 'CO', //region
-                            device: 'DESKTOP', //device
+                            region: event.detail.body.region, //region
+                            device: event.detail.body.device, //device
                         }
                         // Calling your getSteramingData function to get the streaming info from your backeand
                         const data = await getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost)
