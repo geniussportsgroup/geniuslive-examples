@@ -43,6 +43,10 @@ class ViewController: UIViewController {
       if let data = payload as? [String: Any] {
         wrapperView.updateText(data: data)
       }
+    } else if (type == "betslip-container-dimensions") {
+      if let data = payload as? [String: Any] {
+        wrapperView.updateBetslipCoordinates(data: data)
+      }
     }
   }
   

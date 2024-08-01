@@ -36,7 +36,7 @@
         }
         
         // Get Betslip events
-        if (event.detail.type === 'multibet-event') {
+        if (event.detail.type === 'multibet-event' || event.detail.type === 'betslip-container-dimensions') {
           const iOSVideoPlayerBridge = window.webkit?.messageHandlers?.gsVideoPlayerBridge;
           if (iOSVideoPlayerBridge) {
             const { type, body } = event.detail;

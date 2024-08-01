@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31CB02D62C597A99008C7F22 /* BetslipCoordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CB02D52C597A99008C7F22 /* BetslipCoordinates.swift */; };
 		7B0D9B132A9FAB1800BB237E /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 7B0D9B122A9FAB1800BB237E /* template.html */; };
 		7B0D9B152A9FAC0000BB237E /* BetslipData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B142A9FAC0000BB237E /* BetslipData.swift */; };
 		7B0D9B172A9FAE1900BB237E /* CustomBetslip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		31CB02D52C597A99008C7F22 /* BetslipCoordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetslipCoordinates.swift; sourceTree = "<group>"; };
 		7B0D9B122A9FAB1800BB237E /* template.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
 		7B0D9B142A9FAC0000BB237E /* BetslipData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetslipData.swift; sourceTree = "<group>"; };
 		7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBetslip.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				7B0D9B142A9FAC0000BB237E /* BetslipData.swift */,
 				7B0D9B162A9FAE1900BB237E /* CustomBetslip.swift */,
 				7B0D9B182A9FAE7700BB237E /* CustomToast.swift */,
+				31CB02D52C597A99008C7F22 /* BetslipCoordinates.swift */,
 			);
 			path = SwiftUIVideoPlayer;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B3DF3A72A5C953F0066AC4C /* WebViewCoordinator.swift in Sources */,
+				31CB02D62C597A99008C7F22 /* BetslipCoordinates.swift in Sources */,
 				7BEDD3B72A5770470041D0B5 /* FullscreenContentView.swift in Sources */,
 				7B0D9B152A9FAC0000BB237E /* BetslipData.swift in Sources */,
 				7B0D9B192A9FAE7700BB237E /* CustomToast.swift in Sources */,

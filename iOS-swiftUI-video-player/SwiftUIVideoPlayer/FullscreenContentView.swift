@@ -8,6 +8,7 @@ struct FullscreenContentView: View {
   @StateObject private var betslipData = BetslipData()
   @State private var showBetslip = false
   @State private var showToast = false
+  @StateObject private var betslipCoordinates = BetslipCoordinates()
   
   private let rotationChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
@@ -22,7 +23,7 @@ struct FullscreenContentView: View {
           ZStack {
             WebViewWrapper(webView: webViewCoordinator.webView)
             if showBetslip {
-              CustomBetslip(betslipData: betslipData, showToast: $showToast, showBetslip: $showBetslip)
+                CustomBetslip(betslipData: betslipData, showToast: $showToast, showBetslip: $showBetslip, betslipCoordinates: betslipCoordinates)
             }
             if showToast {
               CustomToast(showToast: $showToast)
@@ -93,6 +94,15 @@ struct FullscreenContentView: View {
           betslipData.stake = "\(newDecimalPrice)"
         }
         showBetslip = true
+      }
+    } else if (type == "betslip-container-dimensions") {
+      if let data = payload as? [String: Any] {
+          if let newTop = data["top"] as? Int, let newWidth = data["width"] as? Int, let newHeight = data["height"] as? Int, let newLeft = data["left"] as? Int {
+              betslipCoordinates.top = newTop
+              betslipCoordinates.left = newLeft
+              betslipCoordinates.width = newWidth
+              betslipCoordinates.height = newHeight
+          }
       }
     }
   }
