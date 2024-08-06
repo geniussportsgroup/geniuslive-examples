@@ -23,4 +23,11 @@
             </WebView>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <WebView
+        android:id="@+id/playerWebView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@+id/wrapper"
+        app:layout_anchorGravity="center"></WebView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

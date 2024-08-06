@@ -64,6 +64,21 @@ class VideoWrapper: UIView {
     customBetslip.textView.text = newText
     customBetslip.isHidden = false
   }
+
+    @objc func updateBetslipCoordinates(data: [String: Any]) {
+    var height = 0
+    var width = 0
+    var top = 0
+    var left = 0
+
+    if let newTop = data["top"] as? Int, let newWidth = data["width"] as? Int, let newHeight = data["height"] as? Int, let newLeft = data["left"] as? Int {
+      top = newTop
+      left = newLeft
+      width = newWidth
+      height = newHeight
+    }
+    customBetslip.frame = CGRect(x: left, y: top, width: width, height: height)
+  }
   
   override func layoutSubviews() {
     super.layoutSubviews()

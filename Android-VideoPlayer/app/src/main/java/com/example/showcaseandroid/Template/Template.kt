@@ -75,6 +75,13 @@ class Template {
                           window.AndroidVideoPlayerBridge.postSelectedMarket(jsonselectedMarket)
                       }
                     }
+                    if (event.detail.type === 'betslip-container-dimensions') {
+                      if(window.AndroidVideoPlayerBridge){
+                          console.log(event.detail.body)
+                          var setup= JSON.stringify(event.detail.body)
+                          window.AndroidVideoPlayerBridge.postWindowSetup(setup)
+                      }
+                    }
 
                     // Error handling
                     if (event.detail.type === 'player_not_ready') {
