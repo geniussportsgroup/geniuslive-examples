@@ -7,6 +7,8 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.OrientationEventListener
 import android.view.View
@@ -89,6 +91,10 @@ open class MainActivity : AppCompatActivity() {
     }
 
     internal class JavaScriptInterface(private val context: Context) {
+        var dialogTop: Double = 0.0
+        var dialogWidth: Double = 0.0
+        var dialogHeight: Double = 0.0
+        var dialogLeft: Double = 0.0
         @JavascriptInterface
         fun postSelectedMarket(betslipItem: String) {
 
@@ -111,15 +117,29 @@ open class MainActivity : AppCompatActivity() {
             dialog.setContentView(dialogView)
             dialog.setCanceledOnTouchOutside(false);
             dialog.setTitle("Customer Betslip")
+            val widthToUse = dialogWidth * context.getResources().getDisplayMetrics().density
+            val heightToUse = dialogHeight * context.getResources().getDisplayMetrics().density
 
-            var commandTextView: TextView =  dialogView.findViewById(R.id.commandTextView)
-            var sportsbookFixtureIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookFixtureIdTextView)
-            var sportsbookSelectionIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookSelectionIdTextView)
-            var marketIdTextView: TextView =  dialogView.findViewById(R.id.marketIdTextView)
-            var sportsbookMarketIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketIdTextView)
-            var sportsbookMarketContextTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketContextTextView)
-            var decimalPriceTextView: TextView =  dialogView.findViewById(R.id.decimalPriceTextView)
-            var stakeTextView: TextView =  dialogView.findViewById(R.id.stakeTextView)
+            dialog.window?.apply {
+                setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                setGravity(Gravity.TOP or Gravity.START)
+                clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+                attributes = attributes.apply {
+                    this.x = (dialogLeft * context.getResources().getDisplayMetrics().density).toInt() - 36
+                    this.y = (dialogTop * context.getResources().getDisplayMetrics().density).toInt() - 36
+                    this.width = widthToUse.toInt() + 72
+                    this.height = heightToUse.toInt() + 72
+                }
+            }
+
+            //var commandTextView: TextView =  dialogView.findViewById(R.id.commandTextView)
+            //var sportsbookFixtureIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookFixtureIdTextView)
+            //var sportsbookSelectionIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookSelectionIdTextView)
+            //var marketIdTextView: TextView =  dialogView.findViewById(R.id.marketIdTextView)
+            //var sportsbookMarketIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketIdTextView)
+            //var sportsbookMarketContextTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketContextTextView)
+            //var decimalPriceTextView: TextView =  dialogView.findViewById(R.id.decimalPriceTextView)
+            //var stakeTextView: TextView =  dialogView.findViewById(R.id.stakeTextView)
 
             val addToBetslipButton: Button = dialogView.findViewById(R.id.addbetslip_button)
             val cancelButton: Button = dialogView.findViewById(R.id.cancel_button)
@@ -146,6 +166,17 @@ open class MainActivity : AppCompatActivity() {
             }
 
             dialog.show()
+        }
+
+        @JavascriptInterface
+        fun postWindowSetup(setup: String) {
+
+            val jsonObject = JSONObject(setup)
+
+            dialogTop = jsonObject.optDouble("top", 0.0)
+            dialogLeft = jsonObject.optDouble("left", 0.0)
+            dialogWidth = jsonObject.optDouble("width", 0.0)
+            dialogHeight = jsonObject.optDouble("height", 0.0)
         }
     }
 
