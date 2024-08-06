@@ -103,13 +103,6 @@ open class MainActivity : AppCompatActivity() {
             // Extract fields from the JSON object
 
             val command: String = jsonObject.optString("command", "")
-            val sportsbookFixtureId: String = jsonObject.optString("sportsbookFixtureId", "")
-            val sportsbookSelectionId: String = jsonObject.optString("sportsbookSelectionId", "")
-            val marketId: String = jsonObject.optString("marketId", "")
-            val sportsbookMarketId: String = jsonObject.optString("sportsbookMarketId", "")
-            val sportsbookMarketContext: String = jsonObject.optString("sportsbookMarketContext", "")
-            val decimalPrice: String = jsonObject.optString("decimalPrice", "")
-            val stake: String = jsonObject.optString("stake", "")
 
             val dialogView = LayoutInflater.from(context).inflate(R.layout.betslip, null)
 
@@ -132,26 +125,10 @@ open class MainActivity : AppCompatActivity() {
                 }
             }
 
-            //var commandTextView: TextView =  dialogView.findViewById(R.id.commandTextView)
-            //var sportsbookFixtureIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookFixtureIdTextView)
-            //var sportsbookSelectionIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookSelectionIdTextView)
-            //var marketIdTextView: TextView =  dialogView.findViewById(R.id.marketIdTextView)
-            //var sportsbookMarketIdTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketIdTextView)
-            //var sportsbookMarketContextTextView: TextView =  dialogView.findViewById(R.id.sportsbookMarketContextTextView)
-            //var decimalPriceTextView: TextView =  dialogView.findViewById(R.id.decimalPriceTextView)
-            //var stakeTextView: TextView =  dialogView.findViewById(R.id.stakeTextView)
 
             val addToBetslipButton: Button = dialogView.findViewById(R.id.addbetslip_button)
             val cancelButton: Button = dialogView.findViewById(R.id.cancel_button)
 
-            commandTextView.text = "command: ${command}"
-            sportsbookFixtureIdTextView.text = "sportsbookFixtureId: ${sportsbookFixtureId}"
-            sportsbookSelectionIdTextView.text = "sportsbookSelectionId: ${sportsbookSelectionId}"
-            marketIdTextView.text = "marketId: ${marketId}"
-            sportsbookMarketIdTextView.text = "sportsbookMarketId: ${sportsbookMarketId}"
-            sportsbookMarketContextTextView.text = "sportsbookMarketContext: ${sportsbookMarketContext}"
-            decimalPriceTextView.text = "decimalPrice: ${decimalPrice}"
-            stakeTextView.text = "stake: ${stake}"
 
             cancelButton.setOnClickListener {
                 dialog.dismiss()
