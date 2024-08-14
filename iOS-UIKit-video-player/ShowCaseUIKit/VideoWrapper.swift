@@ -40,6 +40,7 @@ class VideoWrapper: UIView {
   
   @objc func updateText(data: [String: Any]) {
     var newText = ""
+    var showBetslip = true
     if let newSportsbookFixtureId = data["sportsbookFixtureId"] as? String {
       newText += "sportsbookFixtureId: \(newSportsbookFixtureId) \n"
     }
@@ -61,8 +62,13 @@ class VideoWrapper: UIView {
     if let newStake = data["stake"] as? Double {
       newText += "stake: \(newStake) \n"
     }
+    if let command = data["command"] as? String {
+        if (command == "closeBetslip") {
+            showBetslip = false
+        }
+    }
     customBetslip.textView.text = newText
-    customBetslip.isHidden = false
+    customBetslip.isHidden = !showBetslip
   }
 
     @objc func updateBetslipCoordinates(data: [String: Any]) {
