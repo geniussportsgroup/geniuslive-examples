@@ -71,6 +71,7 @@ struct FullscreenContentView: View {
       onToggleFullscreen()
     } else if (type == "multibet-event") {
       print(payload)
+      var showCustomBetslip = true
       if let data = payload as? [String: Any] {
         if let newSportsbookFixtureId = data["sportsbookFixtureId"] as? String {
           betslipData.sportsbookFixtureId = "\(newSportsbookFixtureId)"
@@ -93,7 +94,12 @@ struct FullscreenContentView: View {
         if let newDecimalPrice = data["stake"] as? Double {
           betslipData.stake = "\(newDecimalPrice)"
         }
-        showBetslip = true
+        if let command = data["command"] as? String {
+          if (command == "closeBetslip") {
+            showCustomBetslip = false
+          }
+        }
+        showBetslip = showCustomBetslip
       }
     } else if (type == "betslip-container-dimensions") {
       if let data = payload as? [String: Any] {
