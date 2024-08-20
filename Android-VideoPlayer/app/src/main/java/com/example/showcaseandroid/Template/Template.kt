@@ -93,13 +93,11 @@ class Template {
             async function getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost) {
                 // Here you need to call your backend and retrieve the streaming info based on the given deliveryType, streamId, deliveryId and geniusSportsFixtureId
                 return {
-                         url: 'The video URL',
-                         expiresAt: 'The expiration date',
-                         token: 'The Auth token',
-                         "drm": {
-                           "widevine": "The widevine drm url",
-                   }
-                }
+    "url": "https://videoplatform-cw.production.geniuslive.geniussports.com/hls/live/210000/luwywy0k/frankie_ci_CONTINUOUS_TEST_20000147622/playlist.m3u8",
+    "expiresAt": "2024-08-20T20:40:48Z",
+    "token": "hdnts=st=1724182848~exp=1724186448~acl=/hls/live/210000/luwywy0k/frankie_ci_CONTINUOUS_TEST_20000147622/*~id=f65c10cf-af25-43ff-87e0-8898081d104e~data=reg:*|dma:*|dev:*~hmac=f9b5ddd58b46c99585d0611f1caf680e39eef41774de2113704be48259e4cc1e",
+    "drm": null
+}
             }
             window.addEventListener('load', runVideoplayer)
         </script>

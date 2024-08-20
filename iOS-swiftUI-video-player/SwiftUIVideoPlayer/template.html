@@ -55,10 +55,15 @@
     async function getStreamingData(deliveryType, streamId, deliveryId, geniusSportsFixtureId, dataToPost) {
       // Here you need to call your backend and retrieve the streaming info based on the given deliveryType, streamId, deliveryId and geniusSportsFixtureId
       return {
-       url: 'Video URL',
-       expiresAt: 'expiration date',
-       token: 'auth token',
-       drm: 'drm region',
+          "url": "https://videoplatform.uat.geniuslive.geniussports.com/dash/live/210000/wjmfjhkr/CONTINUOUS_DRM_20000146292/playlist.mpd",
+          "expiresAt": "2024-08-02T21:35:57Z",
+          "token": "hdnts=st=1722630957~exp=1722634557~acl=/dash/live/210000/wjmfjhkr/CONTINUOUS_DRM_20000146292/*~id=b81ccfc7-03b0-46da-be1a-b7dc6ab945d9~data=reg:*|dma:*|dev:*~hmac=6fa8d895ba0abd3026ff53033debee5bf30b43052105fd923409c83e917a2b76",
+          "drm": {
+              "widevine": "https://widevine-drm-licensing.cdn.production.geniuslive.app.geniussports.com/widevine-php/widevine-foreignkey.php?pX=03B9F8",
+              "playready": "https://playready-drm-licensing.cdn.production.geniuslive.app.geniussports.com/cency/preauth.aspx?pX=24713F",
+              "fairplay": "null",
+              "fairplayCertificate": "null"
+          }
       }
     }
     

@@ -108,7 +108,7 @@ open class MainActivity : AppCompatActivity() {
 
             val dialog = Dialog(context)
             dialog.setContentView(dialogView)
-            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCanceledOnTouchOutside(true);
             dialog.setTitle("Customer Betslip")
             val widthToUse = dialogWidth * context.getResources().getDisplayMetrics().density
             val heightToUse = dialogHeight * context.getResources().getDisplayMetrics().density
@@ -186,8 +186,8 @@ open class MainActivity : AppCompatActivity() {
 
         val baseGeniusLivePlayerUrl = "https://genius-live-player-uat.betstream.betgenius.com/widgetLoader?"
         val customerId: String = "0000"
-        val fixtureId: String = "20000062994"
-        val betVisionFixtureId: String = "9889284"
+        val fixtureId: String = "20000147622"
+        val betVisionFixtureId: String = "generaltestingfixture"
         val userSessionId: String = "123456"
         val region: String? = "CO"
         val device: String = "DESKTOP"

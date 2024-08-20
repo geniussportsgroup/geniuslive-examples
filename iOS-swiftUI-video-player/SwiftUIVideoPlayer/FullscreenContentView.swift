@@ -71,7 +71,7 @@ struct FullscreenContentView: View {
       onToggleFullscreen()
     } else if (type == "multibet-event") {
       print(payload)
-      var showCustomBetslip = true
+      var showCustomBetslip = false
       if let data = payload as? [String: Any] {
         if let newSportsbookFixtureId = data["sportsbookFixtureId"] as? String {
           betslipData.sportsbookFixtureId = "\(newSportsbookFixtureId)"
@@ -97,6 +97,9 @@ struct FullscreenContentView: View {
         if let command = data["command"] as? String {
           if (command == "closeBetslip") {
             showCustomBetslip = false
+          }
+          if (command == "openBetslip") {
+            showCustomBetslip = true
           }
         }
         showBetslip = showCustomBetslip
@@ -131,7 +134,7 @@ struct FullscreenContentView: View {
   func updateVideoURL(){
     let configuration = VideoPlayerConfiguration()
     let htmlString = getHTMLString(configuration: configuration)
-    let baseURL = "https://www.example.com"
+    let baseURL = "https://api.geniussports.com?fixtureImmersive=generaltestingfixture"
     webViewCoordinator.webView.loadHTMLString(
       htmlString,
       baseURL: URL(string: String(format: baseURL)))

@@ -8,7 +8,10 @@ struct WebViewWrapper: UIViewRepresentable {
     webView.scrollView.bounces = false
     webView.scrollView.isScrollEnabled = false
     webView.backgroundColor = .black
-
+    
+    if #available(iOS 16.4, *) {
+       webView.isInspectable = true
+    }
     return webView
   }
   

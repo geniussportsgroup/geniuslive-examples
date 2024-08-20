@@ -30,7 +30,7 @@ class VideoWrapper: UIView {
   
   func updateVideoURL(){
     let configuration = VideoPlayerConfiguration()
-    let baseURL = "https://www.example.com"
+    let baseURL = "https://api.geniussports.com?fixtureImmersive=generaltestingfixture"
     let htmlString = getHTMLString(configuration: configuration)
     webViewCoordinator.webView.loadHTMLString(
       htmlString,
@@ -40,7 +40,7 @@ class VideoWrapper: UIView {
   
   @objc func updateText(data: [String: Any]) {
     var newText = ""
-    var showBetslip = true
+    var showBetslip = false
     if let newSportsbookFixtureId = data["sportsbookFixtureId"] as? String {
       newText += "sportsbookFixtureId: \(newSportsbookFixtureId) \n"
     }
@@ -66,6 +66,9 @@ class VideoWrapper: UIView {
         if (command == "closeBetslip") {
             showBetslip = false
         }
+        if (command == "closeBetslip") {
+            showBetslip = true
+        }
     }
     customBetslip.textView.text = newText
     customBetslip.isHidden = !showBetslip
@@ -89,7 +92,6 @@ class VideoWrapper: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     webViewCoordinator.webView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-    customBetslip.frame = CGRect(x: 40, y: 40, width: 250, height: 200)
   }
   
   func onDisappear() {
