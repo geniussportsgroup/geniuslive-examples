@@ -5,6 +5,7 @@ class ViewController: UIViewController {
   var isVideoPlayerReady: Bool = false
   var isFullscreen: Bool = false
   private var wrapperView: VideoWrapper!
+  var orientationSource: OrientationSource = .none
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -64,6 +65,7 @@ class ViewController: UIViewController {
   
   @objc func toggleFullscreen() {
     if !isFullscreen {
+        orientationSource = .programatically
       goFullscreen()
     } else {
       exitFullscreen()
@@ -72,8 +74,25 @@ class ViewController: UIViewController {
   
   func goFullscreen() {
     isFullscreen = true
-    wrapperView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-    wrapperView.webViewCoordinator.webView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+    let insets = view.safeAreaInsets
+    let screenSize = UIScreen.main.bounds.size
+    let notchSide = detectNotchSide(safeArea: insets, orientationSource: orientationSource, isFullScreen: isFullscreen)
+    var x: CGFloat = 0
+    var width = screenSize.width
+
+    switch notchSide {
+        case .left:
+            x = insets.left
+            width -= insets.left
+        case .right:
+            width -= insets.right
+        case .none:
+            break
+    }
+
+    wrapperView.frame = CGRect(x: x, y: 0, width: width, height: UIScreen.main.bounds.size.height)
+    wrapperView.webViewCoordinator.webView.frame = wrapperView.bounds
+
     view.layoutIfNeeded()
     navigationController?.setNavigationBarHidden(true, animated: true)
     setNeedsStatusBarAppearanceUpdate()
@@ -93,6 +112,7 @@ class ViewController: UIViewController {
       document.querySelector(".video-container")?.classList.remove("full-screen")
     """
     wrapperView.webViewCoordinator.webView.evaluateJavaScript(script)
+    orientationSource = .none
   }
   
   func changeOrientation(to orientation: UIInterfaceOrientationMask) {
@@ -100,9 +120,39 @@ class ViewController: UIViewController {
     let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
     windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: orientation))
     windowScene?.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations()
+      
+    orientationSource = .programatically
   }
   
   override var prefersStatusBarHidden: Bool {
     return true
   }
+}
+
+enum NotchPosition {
+    case left
+    case right
+    case none
+}
+
+enum OrientationSource: String {
+  case programatically = "programatically"
+  case accelerometer = "accelerometer"
+  case none = "none"
+}
+
+func detectNotchSide(safeArea: UIEdgeInsets, orientationSource: OrientationSource, isFullScreen: Bool) -> NotchPosition {
+    let orientation = UIDevice.current.orientation
+
+    switch orientation {
+        case .landscapeLeft:
+            return safeArea.left > 0 ? .left : .none
+        case .landscapeRight:
+            return safeArea.right > 0 ? .right : .none
+        case .portrait:
+            // This detects when the phone is portrait and users go to full screen tapping the fullscreen button on the player control
+            return isFullScreen && orientationSource == .programatically ? .left : .none
+        default:
+            return .none
+    }
 }
