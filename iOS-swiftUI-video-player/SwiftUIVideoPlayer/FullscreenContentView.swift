@@ -9,6 +9,7 @@ struct FullscreenContentView: View {
   @State private var showBetslip = false
   @State private var showToast = false
   @StateObject private var betslipCoordinates = BetslipCoordinates()
+  @State private var orientationSource = OrientationSource.none
   
   private let rotationChangePublisher = NotificationCenter.default
     .publisher(for: UIDevice.orientationDidChangeNotification)
@@ -19,6 +20,7 @@ struct FullscreenContentView: View {
   var body: some View {
     GeometryReader { metrics in
       VStack(spacing: 0) {
+        let notchUpdate = detectNotchSide(safeArea: getSafeAreaInsets())
         GeometryReader { geometry in
           ZStack {
             WebViewWrapper(webView: webViewCoordinator.webView)
@@ -33,8 +35,9 @@ struct FullscreenContentView: View {
               isIdleTimerDisabled.toggle()
               UIApplication.shared.isIdleTimerDisabled = isIdleTimerDisabled
           }
-          .edgesIgnoringSafeArea(.bottom)
-          
+          .edgesIgnoringSafeArea(.all)
+          .padding(.leading, notchUpdate == .left ? 1 : 0)
+          .padding(.trailing, notchUpdate == .right ? 1 : 0)
           .frame(width: metrics.size.width, height: geometry.size.height)
           .offset(x: 0, y: isPresented ? -geometry.frame(in: .global).minY : 0)
           
@@ -121,6 +124,8 @@ struct FullscreenContentView: View {
     let isPortrait = UIDevice.current.orientation.rawValue == 0 || UIDevice.current.orientation.isFlat
     ? UIScreen.main.bounds.size.width < UIScreen.main.bounds.size.height
     : UIDevice.current.orientation == .portrait || UIDevice.current.orientation.isFlat
+      
+    orientationSource = .accelerometer
     
     if (!isPortrait && !isPresented) || (isPortrait && isPresented) {
       isPresented.toggle()
@@ -145,7 +150,33 @@ struct FullscreenContentView: View {
     let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
     windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: orientation))
     windowScene?.keyWindow?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations()
+      
+    orientationSource = .programatically
   }
+    
+    private func getSafeAreaInsets() -> UIEdgeInsets {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first else {
+            return .zero
+        }
+        return window.safeAreaInsets
+    }
+  
+    private func detectNotchSide(safeArea: UIEdgeInsets) -> NotchPosition {
+        let orientation = UIDevice.current.orientation
+
+        if safeArea.left > 0 && orientation == .landscapeLeft {
+            return .left
+        } else if safeArea.right > 0 && orientation == .landscapeRight {
+            return .right
+        } else if orientationSource == .programatically && orientation == .portrait {
+            // This detects when the phone is portrait and users go to full screen tapping the fullscreen button on the player control
+            return .left
+        } else {
+          return .none
+        }
+    }
+
 }
 
 struct FullscreenView: View {
@@ -163,4 +194,16 @@ struct FullscreenContentView_Previews: PreviewProvider {
   static var previews: some View {
     FullscreenContentView()
   }
+}
+
+enum NotchPosition: String {
+    case left = "left"
+    case right = "right"
+    case none = "No detected notch"
+}
+
+enum OrientationSource: String {
+  case programatically = "programatically"
+  case accelerometer = "accelerometer"
+  case none = "none"
 }

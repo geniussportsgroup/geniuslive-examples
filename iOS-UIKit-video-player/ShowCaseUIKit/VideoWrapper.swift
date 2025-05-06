@@ -22,6 +22,12 @@ class VideoWrapper: UIView {
     webViewCoordinator.webView.scrollView.bounces = false
     webViewCoordinator.webView.scrollView.isScrollEnabled = false
     webViewCoordinator.webView.backgroundColor = .black
+      
+    // This enable webview inspection on safari console
+    if #available(iOS 16.4, *) {
+        webViewCoordinator.webView.isInspectable = true
+    }
+
     backgroundColor = .black
     addSubview(webViewCoordinator.webView)
     addSubview(customBetslip)
