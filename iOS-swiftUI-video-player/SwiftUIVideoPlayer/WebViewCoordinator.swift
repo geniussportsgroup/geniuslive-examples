@@ -10,6 +10,8 @@ class WebViewCoordinator: NSObject, ObservableObject, WKScriptMessageHandler {
     // the usage of the AVPlayer in order to use the custom control bar
     configuration.allowsInlineMediaPlayback = true
     configuration.allowsPictureInPictureMediaPlayback = false
+    // Unblocks autoplay when WebKit requires a user gesture (avoids stuck loading spinner)
+    configuration.mediaTypesRequiringUserActionForPlayback = []
     
     let userContentController = WKUserContentController()
     configuration.userContentController = userContentController
